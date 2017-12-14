@@ -3,6 +3,7 @@ package com.example.amechy.mechinealejandrotrabajoficherosacda;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.CountDownTimer;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -28,9 +29,11 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class principalActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etxFicheroImagen, etxFicheroFrase;
+public class principalActivity extends AppCompatActivity implements View.OnClickListener{
+
+    EditText etxFicheroImagen,etxFicheroFrase;
+
     Button btnDescargar;
     ImageView imgImagen;
     TextView txvResultadoFrase;
@@ -47,20 +50,22 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     private boolean exitoFicheroFrases = false;
     private long intervalo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        etxFicheroFrase = (EditText) findViewById(R.id.etxFicheroFrase);
-        etxFicheroImagen = (EditText) findViewById(R.id.etxFicheroImg);
-        imgImagen = (ImageView) findViewById(R.id.imgImage);
+
+        etxFicheroFrase = (EditText)findViewById(R.id.etxFicheroFrase);
+        etxFicheroImagen = (EditText)findViewById(R.id.etxFicheroImg);
+        imgImagen = (ImageView)findViewById(R.id.imgImage);
+
 
         listaUrlImagenes = new ArrayList<String>();
         frases = new ArrayList<String>();
 
-        txvResultadoFrase = (TextView) findViewById(R.id.txvResultadoFrase);
-        btnDescargar = (Button) findViewById(R.id.btnDescargar);
+
+        txvResultadoFrase = (TextView)findViewById(R.id.txvResultadoFrase);
+        btnDescargar = (Button)findViewById(R.id.btnDescargar);
         btnDescargar.setOnClickListener(this);
 
     }
@@ -73,6 +78,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
         leerIntervalo();
 
 
+
         if (view == btnDescargar) {
             iniciarContador();
         }
@@ -80,6 +86,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void mostrarImagenYFrase() {
+
 
         if (exitoFicheroImagenes && exitoFicheroFrases) {
             btnDescargar.setEnabled(false);
@@ -101,14 +108,13 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void leerIntervalo() {
-
         try {
-
             InputStream fileInputStream = getResources().openRawResource(R.raw.intervalo);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             intervalo = (Long.parseLong(bufferedReader.readLine())) * 1000;
+
 
         } catch (Exception e) {
             String message = "No se ha encontrado el fichero Intervalo.txt";
@@ -131,7 +137,9 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onStart() {
                     progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
                     progreso.setMessage("Descargando fichero de imagenes");
+
                     progreso.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialogInterface) {
@@ -230,6 +238,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+
     /**
      * Método que crea un contador para que se vayan cargando las frases e imágenes.
      */
@@ -249,6 +258,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
 
         }.start();
     }
+
 
 
 
