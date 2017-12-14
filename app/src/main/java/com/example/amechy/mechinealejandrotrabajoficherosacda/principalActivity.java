@@ -49,6 +49,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     private boolean exitoFicheroImagenes = false;
     private boolean exitoFicheroFrases = false;
     private long intervalo;
+    private boolean contadorIniciado = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +74,14 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-        descargarImagenes();
-        descargarFrases();
-        leerIntervalo();
+
 
 
 
         if (view == btnDescargar) {
-            iniciarContador();
+            descargarImagenes();
+            descargarFrases();
+            leerIntervalo();
         }
 
     }
@@ -88,7 +89,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
     private void mostrarImagenYFrase() {
 
 
-        if (exitoFicheroImagenes && exitoFicheroFrases) {
+
             btnDescargar.setEnabled(false);
 
             txvResultadoFrase.setText(frases.get(fraseActual % (frases.size() - 1)));
@@ -103,7 +104,7 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
 
 
             btnDescargar.setEnabled(true);
-        }
+
 
     }
 
@@ -166,6 +167,8 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
                             listaUrlImagenes.add(linea);
                         }
                         bufferedReader.close();
+
+
                     } catch (FileNotFoundException e) {
                         Toast.makeText(principalActivity.this, "Fichero no encontrado.", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
@@ -173,6 +176,15 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
                     }
                     exitoFicheroImagenes = true;
                     progreso.dismiss();
+                    if (exitoFicheroImagenes && exitoFicheroFrases) {
+
+                        if(!contadorIniciado){
+                            contadorIniciado = true;
+                            iniciarContador();
+                        }
+
+                    }
+
                 }
             });
 
@@ -222,6 +234,8 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
                             frases.add(linea);
                         }
                         bufferedReader.close();
+
+
                     } catch (FileNotFoundException e) {
                         Toast.makeText(principalActivity.this, "Fichero no encontrado.", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
@@ -229,6 +243,15 @@ public class principalActivity extends AppCompatActivity implements View.OnClick
                     }
                     exitoFicheroFrases = true;
                     progreso.dismiss();
+                    if (exitoFicheroImagenes && exitoFicheroFrases) {
+
+                        if(!contadorIniciado){
+                            contadorIniciado = true;
+                            iniciarContador();
+                        }
+
+                    }
+
                 }
             });
 
